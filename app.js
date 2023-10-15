@@ -6,6 +6,10 @@ const userRouter = require("./Routes/users");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next()
+});
 
 app.use("/products", productRouter);
 app.use("/users", userRouter);
@@ -16,9 +20,7 @@ const db_name = "lab2";
 // * Local connection
 const db_url = `mongodb://localhost:27017/${db_name}`; // if it gives error try to change the localhost to 127.0.0.1
 
-
 // ! Mongoose Driver Connection
-
 
 const connectionOptions = {
   useUnifiedTopology: true,
